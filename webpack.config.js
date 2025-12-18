@@ -1,13 +1,28 @@
-const { shareAll, withModuleFederationPlugin } = require('@angular-architects/module-federation/webpack');
+const { merge } = require("webpack-merge");
+const singleSpaDefaults = require("webpack-config-single-spa-ts");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = withModuleFederationPlugin({
+module.exports = function configureWebpack(webpackConfigEnv, argv) {
+  const orgName = "jlmorab";
+  const defaultConfig = singleSpaDefaults({
+    orgName,
+    projectName: "root-config",
+    webpackConfigEnv,
+    argv,
+    disableHtmlGeneration: true,
+  });
 
-  remotes: {
-    "mfe1": "http://localhost:3000/remoteEntry.js",
-  },
-
-  shared: {
-    ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
-  },
-
-});
+  return merge(defaultConfig, {
+    // modify the webpack config however you'd like to by adding to this object
+    plugins: [
+      new HtmlWebpackPlugin({
+        inject: false,
+        template: "src/index.ejs",
+        templateParameters: {
+          isLocal: webpackConfigEnv && webpackConfigEnv.isLocal,
+          orgName,
+        },
+      }),
+    ],
+  });
+};
