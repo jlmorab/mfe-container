@@ -1,12 +1,12 @@
-const { merge } = require("webpack-merge");
-const singleSpaDefaults = require("webpack-config-single-spa-ts");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { merge } = require('webpack-merge');
+const singleSpaDefaults = require('webpack-config-single-spa-ts');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = function configureWebpack(webpackConfigEnv, argv) {
-  const orgName = "jlmorab";
+  const orgName = 'jlmorab';
   const defaultConfig = singleSpaDefaults({
     orgName,
-    projectName: "root-config",
+    projectName: 'root-config',
     webpackConfigEnv,
     argv,
     disableHtmlGeneration: true,
@@ -17,7 +17,7 @@ module.exports = function configureWebpack(webpackConfigEnv, argv) {
     plugins: [
       new HtmlWebpackPlugin({
         inject: false,
-        template: "src/index.ejs",
+        template: 'src/index.ejs',
         templateParameters: {
           isLocal: webpackConfigEnv && webpackConfigEnv.isLocal,
           orgName,
