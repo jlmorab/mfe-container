@@ -1,14 +1,14 @@
 {
   "name": "@jlmorab/root-config",
   "scripts": {
-    "start": "webpack serve --port 9001 --env isLocal",
+    "start": "dotenv -e .env.local -- cross-env HOST_PORT=${HOST_PORT:-9001} webpack serve --port $HOST_PORT --env isLocal",
     "lint": "eslint src --ext js,ts,tsx",
     "test": "cross-env BABEL_ENV=test jest --passWithNoTests",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "prepare": "husky install",
     "build": "concurrently npm:build:*",
-    "build:webpack": "webpack --mode=production",
+    "build:webpack": "dotenv -e .env-prod -- webpack --mode=production",
     "build:types": "tsc"
   },
   "devDependencies": {
