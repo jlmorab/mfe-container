@@ -1,6 +1,7 @@
 {
   "name": "@jlmorab/root-config",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "start": "dotenv -e .env.local -- cross-env HOST_PORT=${HOST_PORT:-9001} webpack serve --port $HOST_PORT --env isLocal",
     "lint": "eslint src --ext js,ts,tsx",
     "test": "cross-env BABEL_ENV=test jest --passWithNoTests",
@@ -22,6 +23,7 @@
     "@typescript-eslint/parser": "^4.33.0",
     "concurrently": "^6.2.1",
     "cross-env": "^7.0.3",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-ts-important-stuff": "^1.1.0",
@@ -48,5 +50,10 @@
     "single-spa": "^5.9.3",
     "single-spa-layout": "^1.6.0"
   },
-  "types": "dist/jlmorab-root-config.d.ts"
+  "types": "dist/jlmorab-root-config.d.ts",
+  "engines": {
+    "node": ">=16.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@9.0.0"
 }
